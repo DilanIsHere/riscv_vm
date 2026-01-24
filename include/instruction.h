@@ -87,8 +87,8 @@ typedef enum SYSTEM_INST {
 
 // System call codes
 typedef enum SCALL_CODE {
-    SCALL_PRINT_INT      = 1,
-    SCALL_PRINT_STR      = 4,
+    SCALL_PRINT_INT      =  1,
+    SCALL_PRINT_STR      =  4,
     SCALL_EXIT           = 10,
     SCALL_PRINT_CHAR     = 11,
     SCALL_PRINT_HEX      = 34,
@@ -101,19 +101,26 @@ typedef enum SCALL_CODE {
 
 // Size of data in bits
 typedef enum BITSIZE {
-    BITSIZE_BYTE     = 8,
+    BITSIZE_BYTE     =  8,
     BITSIZE_HALFWORD = 16,
     BITSIZE_WORD     = 32
 } BITSIZE;
+
+// Size of data in bytes
+typedef enum BYTE_LENGTH {
+    LENGTH_BYTE     = 1,
+    LENGTH_HALFWORD = 2,
+    LENGTH_WORD     = 4
+} BYTE_LENGTH;
 
 // 32-bit single instruction
 typedef uint32_t instruction_t;
 
 // Converts 4-byte array into single 32-bit instruction
-instruction_t word_to_inst(const uint8_t *byteArr);
+instruction_t convert_word_to_inst(const uint8_t *byteArr);
 
 // Sign-extends input values to 32-bits
-uint32_t sign_extend(uint32_t val, int size);
+uint32_t sign_extend_val(uint32_t val, int bitLength);
 
 // Retrieves opcode from instruction
 OPCODE get_opcode(instruction_t inst);

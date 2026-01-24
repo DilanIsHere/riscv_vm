@@ -1,21 +1,21 @@
 #include "../include/instruction.h"
 
-instruction_t word_to_inst(const uint8_t *byteArr) {
-    instruction_t inst;
+instruction_t convert_word_to_inst(const uint8_t *byteArr) {
+    instruction_t inst = 0;
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = LENGTH_WORD - 1; i >= 0; i--) {
         inst <<= BITSIZE_BYTE;
         inst |= byteArr[i];
     }
     return inst;
 }
 
-uint32_t sign_extend(uint32_t val, int size) {
+uint32_t sign_extend_val(uint32_t val, int bitLength) {
     uint32_t newVal = val;
-    val >>= size - 1;
+    val >>= bitLength - 1;
 
     if (val == 1) {
-        int ex = BITSIZE_WORD - size - 1;
+        int ex = BITSIZE_WORD - bitLength - 1;
 
         for (int i = 0; i < BITSIZE_WORD - 1; i++) {
             val <<= 1;
@@ -59,10 +59,3 @@ uint32_t get_imm_jtype(instruction_t inst) {
     return ((inst & 0x80000000) >> 11) | ((inst & 0x7fe00000) >> 20)
         | ((inst & 0x100000) >> 9) | (inst & 0xff000);
 }
-
-
-
-
-
-
-

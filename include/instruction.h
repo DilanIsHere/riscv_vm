@@ -141,13 +141,13 @@ uint8_t get_rs2(instruction_t inst);
 uint8_t get_funct7(instruction_t inst);
 
 // Retrives immediate val from instruction, only for use with i-type
-uint16_t get_imm_itype(instruction_t inst);
+uint32_t get_imm_itype(instruction_t inst);
 
 // Retrives immediate val from instruction, only for use with s-type
-uint16_t get_imm_stype(instruction_t inst);
+uint32_t get_imm_stype(instruction_t inst);
 
 // Retrives immediate val from instruction, only for use with b-type
-uint16_t get_imm_btype(instruction_t inst);
+uint32_t get_imm_btype(instruction_t inst);
 
 // Retrives immediate val from instruction, only for use with u-type
 uint32_t get_imm_utype(instruction_t inst);

@@ -99,60 +99,56 @@ typedef enum SCALL_CODE {
     SCALL_EXIT_CODE      = 93
 } SCALL_CODE;
 
-// Size of data in bits
-typedef enum BITSIZE {
-    BITSIZE_BYTE     =  8,
-    BITSIZE_HALFWORD = 16,
-    BITSIZE_WORD     = 32
-} BITSIZE;
-
 // Size of data in bytes
-typedef enum BYTE_LENGTH {
-    LENGTH_BYTE     = 1,
-    LENGTH_HALFWORD = 2,
-    LENGTH_WORD     = 4
-} BYTE_LENGTH;
+typedef enum DATA_LENGTH {
+    LENGTH_BYTE            = 1,
+    LENGTH_HALFWORD        = LENGTH_BYTE * 2,
+    LENGTH_WORD            = LENGTH_HALFWORD * 2,
+    LENGTH_BYTE_IN_BITS    = LENGTH_BYTE * 8,
+    LENGTH_HALWORD_IN_BITS = LENGTH_BYTE_IN_BITS * LENGTH_HALFWORD,
+    LENGTH_WORD_IN_BITS    = LENGTH_BYTE_IN_BITS * LENGTH_WORD
+} DATA_LENGTH;
 
 // 32-bit single instruction
 typedef uint32_t instruction_t;
 
 // Converts 4-byte array into single 32-bit instruction
-instruction_t convert_word_to_inst(const uint8_t *byteArr);
+instruction_t convert_word_to_inst(const uint8_t byteArr[LENGTH_WORD]);
 
 // Sign-extends input values to 32-bits
-uint32_t sign_extend_val(uint32_t val, int bitLength);
+uint32_t sign_extend_val(const uint32_t val, const int bitLength);
 
 // Retrieves opcode from instruction
-OPCODE get_opcode(instruction_t inst);
+OPCODE get_opcode(const instruction_t inst);
 
 // Retrieves rd from instruction, not for use with s- or b-type
-uint8_t get_rd(instruction_t inst);
+uint8_t get_rd(const instruction_t inst);
 
 // Retrieves funct3 from instruction, not for use with u- or j-type
-uint8_t get_funct3(instruction_t inst);
+uint8_t get_funct3(const instruction_t inst);
 
 // Retrieves rs1 from instruction, not for use with u- or j-type
-uint8_t get_rs1(instruction_t inst);
+uint8_t get_rs1(const instruction_t inst);
 
 // Retrieves rs2 from instruction, not for use with i-, u-, or j-type
-uint8_t get_rs2(instruction_t inst);
+uint8_t get_rs2(const instruction_t inst);
 
 // Retrieves funct7 from instruction, only for use with r-type
-uint8_t get_funct7(instruction_t inst);
+uint8_t get_funct7(const instruction_t inst);
 
 // Retrives immediate val from instruction, only for use with i-type
-uint32_t get_imm_itype(instruction_t inst);
+uint32_t get_imm_itype(const instruction_t inst);
 
 // Retrives immediate val from instruction, only for use with s-type
-uint32_t get_imm_stype(instruction_t inst);
+uint32_t get_imm_stype(const instruction_t inst);
 
 // Retrives immediate val from instruction, only for use with b-type
-uint32_t get_imm_btype(instruction_t inst);
+uint32_t get_imm_btype(const instruction_t inst);
 
 // Retrives immediate val from instruction, only for use with u-type
-uint32_t get_imm_utype(instruction_t inst);
+uint32_t get_imm_utype(const instruction_t inst);
 
 // Retrives immediate val from instruction, only for use with j-type
-uint32_t get_imm_jtype(instruction_t inst);
+uint32_t get_imm_jtype(const instruction_t inst);
 
 #endif
